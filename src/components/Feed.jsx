@@ -1,109 +1,59 @@
-// import { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
+import axios from 'axios'
+import React, { useEffect } from 'react'
+import { BASE_URL } from '../utils/constants';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser } from '../utils/userSlice';
+import { addFeed } from '../utils/feedSlice';
+import Usercard from './Usercard';
 
-// function Feed(){
-//     const feed = useSelector((store)=>store.feed);
-//     const dipatch =useDispatch();
+const Feed = () => {
+  const userData = useSelector((store)=>store.user);
+  const feed = useSelector((store)=>store.feed);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-//     useEffect(()=>{
-//         getFeed()
-//     },[]);
-
-//     const navigate = useNavigate();
-//     const userData =useSelector((store)=>store.user);
-//     useEffect(()=>{
-//         if(userData){
-//             return navigate("/feed");
-//         }
-//     },[])
-
-//     const getFeed =async()=>{
-
-//         if(feed){
-//             return;
-//         }
-//         try{
-//             const res = await axios.get(BASE_URL+"/feed",{withCredentials:true});
-//             dispatchEvent(addFeed(res.data));
-//         }
-//         catch(err){
-//         return err?.response?.data;
-//         }
+//   const fetchUser =async ()=>{
+//     try{
+//     const res = await axios.get(BASE_URL+"/feed",{withCredentials:true});
+//     if(!res.data){
+//       return navigate("/login");
 //     }
-
-
-
-//     return(
-//         <div>
-//             This is the feed page
-//         </div>
-//     )
+//     dispatch(addUser(res.data));
+//     // getFeed();
+//   }
+//   catch(err){
+//     console.log(err.message);
+//   }
 // }
 
-// export default Feed;
-
-
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { BASE_URL } from "../utils/constants";
-import { addFeed } from "../utils/feedSlice";
-import { addUser } from "../utils/userSlice";
-import Usercard from "./Usercard";
-
-function Feed() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const feed = useSelector((store) => store.feed);
-  const userData = useSelector((store) => store.user);
-
-  // ✅ Step 1: Ensure user is authenticated
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await axios.get(BASE_URL + "/profile", {
-          withCredentials: true,
-        });
-        dispatch(addUser(res.data));
-      } catch (err) {
-        navigate("/login", { replace: true });
-      }
-    };
-
-    if (!userData) {
-      fetchUser();
+const getFeed = async()=>{
+  try{
+    if(feed){
+      return;
     }
-  }, [userData, dispatch, navigate]);
+    const res = await axios.get(BASE_URL+"/feed",{withCredentials:true});
+    console.log(res.data);
+    dispatch(addFeed(res.data));
 
-  // ✅ Step 2: Fetch feed ONLY after userData exists
-  useEffect(() => {
-    const getFeed = async () => {
-      try {
-        const res = await axios.get(BASE_URL + "/feed", {
-          withCredentials: true,
-        });
-        dispatch(addFeed(res.data));
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  }
+  catch(err){
+    console.log(err.message);
+  }
+}
+useEffect(()=>{
+getFeed();
+},[]);
 
-    if (userData && !feed) {
-      getFeed();
-    }
-  }, [userData, feed, dispatch]);
 
-  return(
-    feed &&(
+  return (
+     feed && (
+      <div className="flex justify-center my-10 mb-23">
+        <Usercard user={feed[6]}/>
 
-    <div className="flex justify-center my-10">
-        {<Usercard user={feed[5]}/>}
-    </div>
-    ) 
-  ) 
+      </div>
+  )
+)
 }
 
-export default Feed;
+export default Feed

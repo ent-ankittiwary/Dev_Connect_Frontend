@@ -5,23 +5,23 @@ import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
 
 const Login = () => {
   const dispatch = useDispatch();
-const navigate = useNavigate();
-const userData = useSelector((store) => store.user);
-
-useEffect(() => {
-  if (userData) {
-    navigate("/feed", { replace: true });
-  }
-}, [userData, navigate]);
-
-
-
+  const navigate = useNavigate();
+  const userData = useSelector((store) => store.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error,setError] = useState("");
+
+
+  useEffect(()=>{
+    if(userData){
+      return navigate("/feed");
+    }
+  },[userData]);
 
 
 const handleLogin = async () => {
@@ -33,8 +33,8 @@ const handleLogin = async () => {
     );
 
     if (res.data.success) {
-      // alert("Welcome Back! " + res.data.cust1.name);
-      dispatch(addUser(res.data.cust1));
+      alert("Welcome Back! " + res.data.user.name);
+      dispatch(addUser(res.data.user));
       return navigate("/feed");
     } 
   } catch (err) {

@@ -227,16 +227,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Signup = () => {
   const navigate = useNavigate();
   const userData =useSelector((store)=>store.user);
 
+
   useEffect(()=>{
     if(userData){
-      return navigate("/feed")
+      return navigate("/feed");
     }
   },[userData]);
 

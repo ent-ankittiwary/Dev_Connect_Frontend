@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 function Navbar(){
     const user = useSelector((store)=>store.user);
-    console.log(user);
     return(
         <div className="navbar bg-base-100 shadow-sm">
   <div className="flex-1">
@@ -20,8 +19,8 @@ function Navbar(){
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
           <img
-            alt="user photo"
-            src={user.photoUrl} />
+            src={user.photoUrl} 
+            alt="user photo"/>
         </div>
       </div>
       <ul

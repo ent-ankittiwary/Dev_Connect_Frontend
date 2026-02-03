@@ -11,9 +11,6 @@ const Body =()=>{
     const dispatch = useDispatch();
     const navigate= useNavigate();
     const userData = useSelector((store)=>store.user);
-
-
-
     const fetchUser = async () =>{
         try{
             const res = await axios.get(BASE_URL+"/profile",{withCredentials:true});
@@ -24,7 +21,7 @@ const Body =()=>{
                 navigate("/login");
             }
             else{
-                console.error(err);
+                console.log(err);
             }
         }
     }
@@ -37,6 +34,7 @@ const Body =()=>{
    
 
     return(
+    
         <div>
             <Navbar/>
             <Outlet/>  {/*This will render child routes of body always below the navbar*/}
