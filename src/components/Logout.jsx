@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { BASE_URL } from '../utils/constants'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { removeUser } from '../utils/userSlice'
 
 const Logout = () => {

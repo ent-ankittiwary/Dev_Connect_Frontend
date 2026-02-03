@@ -1,24 +1,17 @@
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../utils/constants";
 import { useEffect } from "react";
-import Navbar from "./navbar";
 
 
 const Profile=()=>{
     const navigate = useNavigate();
-    const checkLogIn =async()=>{
-        const userData= await useSelector((store)=>store.user);
-        if(!userData){
-            return navigate("/login")
-        }
+      const userData = useSelector((store) => store.user);
+
+  useEffect(() => {
+    if (!userData) {
+      navigate("/login");
     }
-    useEffect(()=>{
-        checkLogIn()
-    },[])
-
-
+  }, [userData, navigate]);
     return(
         <div>
             <p>THis is profile page</p>

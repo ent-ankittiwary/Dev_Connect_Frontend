@@ -6,14 +6,23 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 
-
-
 const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const userData = useSelector((store)=>store.user);
+const navigate = useNavigate();
+const userData = useSelector((store) => store.user);
+
+useEffect(() => {
+  if (userData) {
+    navigate("/feed", { replace: true });
+  }
+}, [userData, navigate]);
+
+
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error,setError] = useState("");
+
 
 const handleLogin = async () => {
   try {
@@ -24,16 +33,14 @@ const handleLogin = async () => {
     );
 
     if (res.data.success) {
-      alert("Welcome Back! " + res.data.cust1.name);
+      // alert("Welcome Back! " + res.data.cust1.name);
       dispatch(addUser(res.data.cust1));
-      navigate("/feed");
-    } else {
-      alert("Invalid Credentials"); // ❌ show error
-    }
-
+      return navigate("/feed");
+    } 
   } catch (err) {
+    setError(err?.response?.data?.message);
     alert("Login failed");
-    console.error(err);
+    console.log(err); 
   }
 };
   return (
@@ -57,7 +64,7 @@ const handleLogin = async () => {
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Password : {password}</legend>
               <input
-                type="text"
+                type="password"
                 value={password}
                 className="input"
                 placeholder="Password"
@@ -65,6 +72,7 @@ const handleLogin = async () => {
               />
             </fieldset>
           </div>
+          <p className="text-red-500">{error}</p>
           <div className="flex justify-between">
             <button className="btn btn-primary my-5" onClick={handleLogin}>
               Login
