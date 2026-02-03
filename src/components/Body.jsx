@@ -21,7 +21,7 @@ const Body =()=>{
                 navigate("/login");
             }
             else{
-                console.log(err);
+                console.log(err.message);
             }
         }
     }

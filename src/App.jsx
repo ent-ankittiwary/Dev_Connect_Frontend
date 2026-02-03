@@ -19,7 +19,6 @@ function App() {
             <Route path="/feed" element={<Feed/>} />
             <Route path ="/logout" element={<Logout/>}/>
             <Route path="/profile" element={<Profile/>}/>
-            <Route path="/kkr" element={<Kkr/>}/>
             <Route path="/*" element={<p>This page doesn't exist</p>}/>
           </Route>
         </Routes>
