@@ -15,8 +15,8 @@ const Usercard =({user}) =>{
     {about && (<p>{user?.about}</p>)}
     {skills && (<p><b>Skills: </b>{skills+" "}</p>)}
     <div className="card-actions justify-end">
-    <button className="btn btn-primary">Ignore</button>
-      <button className="btn btn-primary bg-green-800">Interested</button>
+    <button className="btn btn-primary text-white">Ignore</button>
+      <button className="btn btn-primary bg-green-800 text-white">Interested</button>
     </div>
   </div>
 </div>

@@ -26,7 +26,7 @@ const Connection = () => {
     },[]);
 
     if(!connections){
-        return;
+        return <h2>No connection found</h2>;
     }
     if(connections.length===0){
         return <h1>You have no Connections</h1>

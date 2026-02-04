@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Navbar(){
+  const [open, setOpen] = useState(false); // 👈 for collapse toggle
     const user = useSelector((store)=>store.user);
     return(
         <div className="navbar bg-base-100 shadow-sm">
@@ -16,25 +18,28 @@ function Navbar(){
     {user &&(
   <div className="dropdown dropdown-end flex px-4 gap-5 item-center  ">
     <p className="mt-1">Welcome, {user.name}</p>
-      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+      <div tabIndex={0} role="button" onClick={()=>setOpen(!open)} className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
           <img
             src={user.photoUrl} 
             alt="user photo"/>
         </div>
       </div>
+      {open &&(
       <ul
         tabIndex="-1"
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
         <li>
-          <Link to="/profile" className="justify-between">
+          <Link to="/profile" className="justify-between" onClick={()=>setOpen(false)}>
             Profile
             <span className="badge">New</span>
           </Link>
         </li>
-        <li><Link to="/accepted/connections">Connections</Link></li>
-        <li><Link to="/logout">Logout</Link></li>
+        <li><Link to="/accepted/connections" onClick={()=>setOpen(false)}>Connections</Link></li>
+        <li><Link to="/interested/connections" onClick={()=>setOpen(false)}>Incoming Requests</Link></li>
+        <li><Link to="/logout" onClick={()=>setOpen(false)}>Logout</Link></li>
       </ul>
+      )}
     </div>
     )}
   </div>
