@@ -49,7 +49,7 @@ getFeed();
   return (
      feed && (
       <div className="flex justify-center my-10 mb-23">
-        <Usercard user={feed[4]}/>
+        <Usercard user={feed[1]}/>
 
       </div>
   )

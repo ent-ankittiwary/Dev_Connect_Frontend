@@ -1,12 +1,21 @@
 import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequest } from "../utils/requestSlice";
+import { addRequest, removeRequest } from "../utils/requestSlice";
 import axios from "axios";
 
 const Request = () => {
   const dispatch = useDispatch();
   const requestData = useSelector((store)=>store.requests);
+  const reviewRequest =  async (status,_id) =>{
+    try{
+         const res = await axios.post(BASE_URL+"/request/review/"+status+"/"+_id,{},{withCredentials:true});
+         dispatch(removeRequest());
+    }
+    catch(err){
+
+    }
+  }
 
   const fetchRequest = async () => {
     try {
@@ -25,7 +34,7 @@ const Request = () => {
   }, []);
 
     if(!requestData){
-        return 
+        return <p>No Connection Request</p>
     }
     if(requestData.length===0){
         return <h1>You have no Connections</h1>
@@ -37,8 +46,8 @@ const Request = () => {
 
   return (
     <div className="text-center my-10">
-        <div className='text-bold font-serif text-2xl'>My Connections</div>
-        {requestData.map((r)=>{
+        <div className='text-bold font-serif text-2xl'>Connection Requests</div>
+        {requestData && ( requestData.map((r)=>{
             const {name,age,photoUrl,gender,about,skills}=r.fromUserId;
             // console.log(connection.toUserId.name);
             return(
@@ -57,13 +66,13 @@ const Request = () => {
                 </div>
                 </div>
                 <div className="flex gap-3">
-               <button className="btn  bg-green-600 text-white">Accept</button>
-               <button className="btn  bg-red-800  text-white">Reject</button>
+               <button className="btn  bg-green-600 text-white" onClick={()=>reviewRequest("accepted",r._id)}>Accept</button>
+               <button className="btn  bg-red-800  text-white" onClick={()=>reviewRequest("rejected",r._id)}>Reject</button>
                 </div>
             </div>
             )
             
-        })}
+        }))}
     </div>
   )
 }
@@ -74,3 +83,6 @@ const Request = () => {
 
 
 export default Request;
+
+
+

@@ -18,9 +18,8 @@ function App() {
             <Route path="/login" element={<Login/>} />
             <Route path="/feed" element={<Feed/>} />
             <Route path ="/logout" element={<Logout/>}/>
-            <Route path="/profile" element={<Profile/>}/>
-            <Route path ="/interested/connections" element ={<Request/>}/>
-            <Route path ="/accepted/connections" element ={<Connection/>}/>
+
+
             <Route path="/*" element={<p>This page doesn't exist</p>}/>
           </Route>
         </Routes>
