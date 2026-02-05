@@ -12,20 +12,7 @@ const Feed = () => {
   const feed = useSelector((store)=>store.feed);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-//   const fetchUser =async ()=>{
-//     try{
-//     const res = await axios.get(BASE_URL+"/feed",{withCredentials:true});
-//     if(!res.data){
-//       return navigate("/login");
-//     }
-//     dispatch(addUser(res.data));
-//     // getFeed();
-//   }
-//   catch(err){
-//     console.log(err.message);
-//   }
-// }
+  
 
 const getFeed = async()=>{
   try{

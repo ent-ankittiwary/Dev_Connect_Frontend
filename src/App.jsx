@@ -5,8 +5,6 @@ import Body from "./components/Body";
 import Signup from "./components/Signup";
 import Feed from "./components/Feed";
 import Logout from "./components/Logout";
-import Request from "./components/Request";
-import Connection from "./components/Connection";
 
 function App() {
   return (
@@ -18,8 +16,7 @@ function App() {
             <Route path="/login" element={<Login/>} />
             <Route path="/feed" element={<Feed/>} />
             <Route path ="/logout" element={<Logout/>}/>
-
-
+            <Route path="/profile" element={<Profile/>}/>
             <Route path="/*" element={<p>This page doesn't exist</p>}/>
           </Route>
         </Routes>
