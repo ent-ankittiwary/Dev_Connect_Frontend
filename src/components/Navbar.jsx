@@ -31,13 +31,13 @@ function Navbar(){
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
         <li>
           <Link to="/profile" className="justify-between" onClick={()=>setOpen(false)}>
-            Profile
+             ⚧️ My Profile
             <span className="badge">New</span>
           </Link>
         </li>
-        <li><Link to="/accepted/connections" onClick={()=>setOpen(false)}>Connections</Link></li>
-        <li><Link to="/interested/connections" onClick={()=>setOpen(false)}>Incoming Requests</Link></li>
-        <li><Link to="/logout" onClick={()=>setOpen(false)}>Logout</Link></li>
+        <li><Link to="/accepted/connections" onClick={()=>setOpen(false)}>🫂 Connections</Link></li>
+        <li><Link to="/interested/connections" onClick={()=>setOpen(false)}>🫴 Incoming Requests</Link></li>
+        <li><Link to="/logout" onClick={()=>setOpen(false)}>🚷 Logout</Link></li>
       </ul>
       )}
     </div>

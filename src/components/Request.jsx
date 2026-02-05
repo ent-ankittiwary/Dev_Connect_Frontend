@@ -1,9 +1,125 @@
-import React from 'react'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { BASE_URL } from "../utils/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { addRequests, removeRequests } from "../utils/requestSlice";
+import { addConnections } from "../utils/connectionSlice";
 
 const Request = () => {
-  return (
-    <div>Request</div>
-  )
+  const requests = useSelector((store) => store.requests);
+  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+
+
+const reviewRequest = async(status,_id)=>{
+    try{
+        const res = await axios.post(BASE_URL+"/request/review/"+status+"/"+_id,{},{withCredentials:true});
+        dispatch(removeRequests(_id));
+        alert(res.data.message);
+
+    }
+    catch(err){
+        console.log(err.message);
+    }
 }
 
-export default Request
+
+
+
+  const fetchRequests = async () => {
+    try {
+      const res = await axios.get(BASE_URL + "/interested/connections", {
+        withCredentials: true,
+      });
+      dispatch(addRequests(res.data.data));
+    } catch (err) {
+      if (err.status === 404) {
+        alert("You have no connection Requests for now!")
+        console.log("No users have sent you a connection request");
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchRequests();
+  }, []);
+
+  if (!requests) {
+    return null;
+  }
+  if (requests.length === 0) {
+    return <h1>No Connections found</h1>;
+  }
+
+return (
+  <div className="text-center my-10 px-2">
+    <h1 className="text-bold text-2xl mb-6">Incoming Request</h1>
+
+    {requests &&
+      requests.map((request) => {
+        const { name, age, photoUrl, gender, about, skills } =
+          request.fromUserId;
+
+        return (
+          <div
+            key={request._id}
+            className="
+              bg-base-200 rounded-lg p-4 mb-6
+              w-full sm:w-11/12 md:w-3/4 lg:w-1/2
+              mx-auto
+            "
+          >
+            {/* Main content */}
+            <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
+              
+              {/* Avatar */}
+              <div className="flex-shrink-0 mx-auto md:mx-0">
+                <img
+                  className="w-20 h-20 rounded-full"
+                  alt="User-Img"
+                  src={photoUrl}
+                />
+              </div>
+
+              {/* User info */}
+              <div className="text-left flex-1">
+                <h2 className="font-bold text-xl">{name}</h2>
+
+                {age && gender && (
+                  <p className="font-medium text-sm">
+                    {age}, {gender}
+                  </p>
+                )}
+
+                <p className="font-normal mt-1">{about}</p>
+                <p className="font-light text-sm mt-1">
+                  {skills + ""}
+                </p>
+              </div>
+
+              {/* Action buttons */}
+              <div className="
+                flex flex-col md:flex-row
+                gap-3
+                justify-center
+                w-full md:w-auto
+              ">
+                
+                <button className="btn btn-sm md:btn-md bg-red-700 text-white" onClick={()=>{reviewRequest("rejected",request._id)}
+                }>
+                  Reject
+                </button>
+
+                <button className="btn btn-sm md:btn-md bg-green-700 text-white" onClick={()=>{reviewRequest("accepted",request._id)
+                }}>
+                  Accept
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+  </div>
+);
+}
+export default Request;
