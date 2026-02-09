@@ -244,6 +244,9 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
+  const [gender,setGender] = useState("");
+  const [about,setAbout] = useState("");
+  const [skills,setSkills] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -294,8 +297,20 @@ const Signup = () => {
           </fieldset>
 
           <fieldset className="fieldset">
+            <legend className="fieldset-legend">Gender</legend>
+            <input type="text" value={gender} className="input" onChange={(e)=>setGender(e.target.value)} />
+          </fieldset>
+          <fieldset className="fieldset">
             <legend className="fieldset-legend">PhotoUrl</legend>
             <input type="text" value={photoUrl} className="input" onChange={(e)=>setPhotoUrl(e.target.value)} />
+          </fieldset>
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend">About</legend>
+            <input type="text" value={about} className="input" onChange={(e)=>setAbout(e.target.value)} />
+          </fieldset>
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend">Skills</legend>
+            <input type="text" value={skills} className="input" onChange={(e)=>setSkills(e.target.value)} />
           </fieldset>
 
           <fieldset className="fieldset">

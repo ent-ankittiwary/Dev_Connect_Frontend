@@ -74,10 +74,10 @@ const handleLogin = async () => {
           </div>
           <p className="text-red-500">{error}</p>
           <div className="flex justify-between">
-            <button className="btn btn-primary my-5" onClick={handleLogin}>
+            <button className="btn btn-primary my-5 bg-amber-600" onClick={handleLogin}>
               Login
             </button>
-            <button className="btn btn-success my-5"><Link to="/signup">New User?</Link></button>
+            <button className="btn btn-success my-5 text-white"><Link to="/signup">New User?</Link></button>
           </div>
         </div>
       </div>

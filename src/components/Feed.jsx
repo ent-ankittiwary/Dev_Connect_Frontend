@@ -30,17 +30,21 @@ const getFeed = async()=>{
 }
 useEffect(()=>{
 getFeed();
-},[]);
+},[feed]);
 
+if(!feed){
+  return;
+}
 
+if(feed.length<=0) return <h1 className="flex justify-center font-extrabold text-5xl my-10" >No new Users Found</h1>
   return (
-     feed && (
-      <div className="flex justify-center my-10 mb-23">
-        <Usercard user={feed[1]}/>
-
+    feed && (
+      <div className='flex justify-center my-10'>
+        <Usercard user ={feed[0]}/>
       </div>
+    )
   )
-)
+
 }
 
 export default Feed

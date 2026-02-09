@@ -21,6 +21,7 @@ function App() {
             <Route path="/profile" element={<Profile/>}/>
             <Route path="/accepted/connections" element={<Connection/>}/>
             <Route path="/interested/connections" element={<Request/>}/>
+            {/* <Route path="/request/send/:status/:resId" element={<HandleSendRequest/>}/> */}
             <Route path="/*" element={<p>This page doesn't exist</p>}/>
           </Route>
         </Routes>
