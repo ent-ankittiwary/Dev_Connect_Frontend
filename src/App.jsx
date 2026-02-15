@@ -19,9 +19,8 @@ function App() {
             <Route path="/feed" element={<Feed/>} />
             <Route path ="/logout" element={<Logout/>}/>
             <Route path="/profile" element={<Profile/>}/>
-            <Route path="/accepted/connections" element={<Connection/>}/>
-            <Route path="/interested/connections" element={<Request/>}/>
-            {/* <Route path="/request/send/:status/:resId" element={<HandleSendRequest/>}/> */}
+            <Route path="interested/connections" element={<Request/>}/>
+            <Route path="/accepted/connections" element={<Connection/>}/> 
             <Route path="/*" element={<p>This page doesn't exist</p>}/>
           </Route>
         </Routes>

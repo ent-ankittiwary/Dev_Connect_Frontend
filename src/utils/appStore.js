@@ -7,7 +7,7 @@ import requestReducer from "./requestSlice";
 
     const appStore = configureStore({
   reducer: {
-    user: userReducer,
+    user: userReducer, //user is slice name to be used to find that slice from store
     feed: feedReducer,
     connections:ConnectionReducer,
     requests:requestReducer

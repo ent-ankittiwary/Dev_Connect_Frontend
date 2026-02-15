@@ -96,8 +96,9 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
-import { addConnections } from "../utils/connectionSlice";
+import { addConnections, removeConnection } from "../utils/connectionSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Connection = () => {
   const dispatch = useDispatch();
@@ -115,19 +116,45 @@ const Connection = () => {
     }
   };
 
+  const deleteConnection = async(id)=>{
+
+
+
+    try{
+      const res = await axios.delete(BASE_URL+"/accepted/connection/delete/"+id,{withCredentials:true});
+      console.log(res.data);
+      dispatch(removeConnection(res.data));
+      alert(res.data.message);
+    }
+  catch(err){
+    console.log(err.message);
+  }
+
+}
+
+useEffect(()=>{
+  if(!connections){
+    fetchConnections();
+  }
+},[connections]);
+
+
+
+
+
   useEffect(() => {
     fetchConnections();
   }, []);
 
-  // ✅ FIRST: must be array
+  //  FIRST: must be array
   if (!Array.isArray(connections)) return null;
 
-  // ✅ empty state
+  // empty state
   if (connections.length === 0) {
     return <h1>No Connections found</h1>;
   }
 
-  // ✅ wait for user
+  //  wait for user
   if (!user) return null;
 
   return (
@@ -135,11 +162,12 @@ const Connection = () => {
       <h1 className="text-bold text-2xl">My Connections</h1>
 
       {connections.map((connection) => {
-        // 🚨 GUARD: skip broken records
+        //  GUARD: skip broken records
         if (!connection.fromUserId || !connection.toUserId) {
           console.warn("Skipping invalid connection:", connection);
           return null;
         }
+        const connectionId = connection._id;
 
         const fromId = String(connection.fromUserId._id);
         const toId = String(connection.toUserId._id);
@@ -155,10 +183,10 @@ const Connection = () => {
           return null;
         }
 
-        // ✅ FINAL SAFETY
+        //  FINAL SAFETY
         if (!otherUser) return null;
 
-        const { name, age, photoUrl, gender, about, skills } = otherUser;
+        const { _id,name, age, photoUrl, gender, about, skills } = otherUser;
 
         return (
           <div
@@ -182,6 +210,9 @@ const Connection = () => {
               )}
               <p className="font-normal">{about}</p>
               <p className="font-light">{skills + ""}</p>
+            </div>
+            <div className="ml-auto flex items-center">
+              <button className="btn btn-secondary" onClick={()=>deleteConnection(connectionId)} >Remove</button>
             </div>
           </div>
         );
