@@ -4,13 +4,15 @@ import userReducer from "./userSlice";  //you could give any name to the import 
 import feedReducer from "./feedSlice";
 import ConnectionReducer from "./connectionSlice";
 import requestReducer from "./requestSlice";
+import reviewReducer from "./reviewSlice";
 
     const appStore = configureStore({
   reducer: {
     user: userReducer, //user is slice name to be used to find that slice from store
     feed: feedReducer,
     connections:ConnectionReducer,
-    requests:requestReducer
+    requests:requestReducer,
+    review:reviewReducer,
   },
 }); 
 

@@ -19,7 +19,8 @@ const Request = () => {
       dispatch(removeRequests(_id));
       alert(res.data.message);
       //trial
-    } catch (err) {
+    } 
+    catch (err) {
       console.log(err.message);
     }
   };
@@ -288,15 +289,15 @@ export default Request;
 //   };
 
 //   const fetchRequests = async () => {
-//     console.log("🔥 fetchRequests CALLED");
+//     console.log(" fetchRequests CALLED");
 
 //     try {
 //       const res = await axios.get(
-//         BASE_URL + "/interested/connections", // ✅ FIXED URL
+//         BASE_URL + "/interested/connections", //  FIXED URL
 //         { withCredentials: true }
 //       );
 
-//       console.log("✅ API RESPONSE:", res.data);
+//       console.log(" API RESPONSE:", res.data);
 
 //       if (res.data?.data?.length > 0) {
 //         dispatch(addRequests(res.data.data));
